@@ -5,7 +5,6 @@ import com.vetcare.aplicacion.mapper.HistorialMedicoMapper;
 import com.vetcare.aplicacion.servicio.HistorialMedicoService;
 import com.vetcare.persistencia.entidad.AtencionEntity;
 import com.vetcare.persistencia.entidad.ConsultaEntity;
-import com.vetcare.persistencia.entidad.HistorialMedicoEntity;
 import com.vetcare.persistencia.entidad.UrgenciaEntity;
 import com.vetcare.persistencia.repositorio.HistorialMedicoRepository;
 import java.time.LocalDate;

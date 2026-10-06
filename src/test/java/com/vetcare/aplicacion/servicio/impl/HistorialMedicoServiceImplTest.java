@@ -63,7 +63,9 @@ class HistorialMedicoServiceImplTest {
 
     @Test
     void rechazaUnRangoDeFechasInvertido() {
-        assertThrows(IllegalArgumentException.class, () -> servicio.buscarPorMascotaId(5L,
-                null, LocalDate.of(2026, 3, 2), LocalDate.of(2026, 3, 1), null, null));
+        assertEquals("La fecha final no puede ser anterior a la inicial.",
+                assertThrows(IllegalArgumentException.class, () -> servicio.buscarPorMascotaId(5L,
+                        null, LocalDate.of(2026, 3, 2), LocalDate.of(2026, 3, 1), null, null))
+                        .getMessage());
     }
 }

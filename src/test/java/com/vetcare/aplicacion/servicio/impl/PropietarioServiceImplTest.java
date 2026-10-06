@@ -54,8 +54,9 @@ class PropietarioServiceImplTest {
         when(propietarioRepository.findById(1L)).thenReturn(Optional.of(propietario));
         when(mascotaRepository.findById(2L)).thenReturn(Optional.of(mascota()));
 
-        assertThrows(MascotaNoPerteneceAPropietarioException.class,
-                () -> servicio.desasociarMascota(1L, 2L));
+        assertEquals("La mascota no está asociada a este propietario.",
+                assertThrows(MascotaNoPerteneceAPropietarioException.class,
+                        () -> servicio.desasociarMascota(1L, 2L)).getMessage());
     }
 
     private MascotaEntity mascota() {

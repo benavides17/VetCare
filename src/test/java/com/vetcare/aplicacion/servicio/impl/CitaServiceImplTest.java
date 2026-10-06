@@ -70,7 +70,9 @@ class CitaServiceImplTest {
         CitaDto solicitud = new CitaDto(null, LocalDateTime.now().plusDays(1),
                 "Control", null, 1L, null, 2L, null);
 
-        assertThrows(ConflictoHorarioException.class, () -> servicio.guardar(solicitud));
+        assertEquals("El veterinario ya tiene una cita en ese horario.",
+                assertThrows(ConflictoHorarioException.class,
+                        () -> servicio.guardar(solicitud)).getMessage());
     }
 
     @Test

@@ -12,7 +12,6 @@ import com.vetcare.dominio.enumeraciones.Prioridad;
 import com.vetcare.dominio.enumeraciones.Sexo;
 import com.vetcare.dominio.enumeraciones.TipoDocumento;
 import com.vetcare.dominio.enumeraciones.EstadoTratamiento;
-import com.vetcare.dominio.modelo.Atencion;
 import com.vetcare.dominio.modelo.Cita;
 import com.vetcare.dominio.modelo.Consulta;
 import com.vetcare.dominio.modelo.Especialidad;
@@ -78,9 +77,12 @@ class DominioVetCareTest {
         Urgencia urgencia = new Urgencia(3L, LocalDateTime.now(), "Herida", "Arañazo",
                 LocalDateTime.now(), Prioridad.MEDIA, mascota);
 
-        assertThrows(IllegalArgumentException.class, () -> urgencia.cambiarEstado(null));
-        assertThrows(TransicionEstadoInvalidaException.class,
-                () -> urgencia.cambiarEstado(EstadoUrgencia.REMITIDA));
+        assertEquals("El nuevo estado no puede ser nulo.",
+                assertThrows(IllegalArgumentException.class, () -> urgencia.cambiarEstado(null))
+                        .getMessage());
+        assertEquals("No se puede cambiar de RECIBIDA a REMITIDA.",
+                assertThrows(TransicionEstadoInvalidaException.class,
+                        () -> urgencia.cambiarEstado(EstadoUrgencia.REMITIDA)).getMessage());
     }
 
     @Test
@@ -102,12 +104,22 @@ class DominioVetCareTest {
 
     @Test
     void debeValidarValoresObjetosDeDominio() {
-        assertThrows(IllegalArgumentException.class, () -> new Documento(TipoDocumento.DNI, " "));
-        assertThrows(IllegalArgumentException.class, () -> new Contacto("", "a@b.com", "Calle"));
-        assertThrows(IllegalArgumentException.class, () -> new NombreCompleto("", "García"));
-        assertThrows(IllegalArgumentException.class, () -> new Dosis(BigDecimal.ZERO, "mg", "cada 8h"));
-        assertThrows(IllegalArgumentException.class,
-                () -> new PeriodoTratamiento(LocalDate.now().plusDays(5), LocalDate.now()));
+        assertEquals("El número de documento es obligatorio.",
+                assertThrows(IllegalArgumentException.class,
+                        () -> new Documento(TipoDocumento.DNI, " ")).getMessage());
+        assertEquals("El teléfono es obligatorio.",
+                assertThrows(IllegalArgumentException.class,
+                        () -> new Contacto("", "a@b.com", "Calle")).getMessage());
+        assertEquals("Los nombres son obligatorios.",
+                assertThrows(IllegalArgumentException.class,
+                        () -> new NombreCompleto("", "García")).getMessage());
+        assertEquals("La cantidad debe ser mayor que cero.",
+                assertThrows(IllegalArgumentException.class,
+                        () -> new Dosis(BigDecimal.ZERO, "mg", "cada 8h")).getMessage());
+        assertEquals("La fecha de fin no puede ser anterior a la de inicio.",
+                assertThrows(IllegalArgumentException.class,
+                        () -> new PeriodoTratamiento(LocalDate.now().plusDays(5), LocalDate.now()))
+                        .getMessage());
     }
 
     @Test
@@ -136,7 +148,9 @@ class DominioVetCareTest {
         Urgencia urgencia = new Urgencia(30L, LocalDateTime.now(), "Hemorragia", "Sangrado leve",
                 LocalDateTime.now(), Prioridad.MEDIA, mascota);
 
-        assertThrows(TransicionEstadoInvalidaException.class, urgencia::finalizar);
+        assertEquals("No se puede cambiar de RECIBIDA a FINALIZADA.",
+                assertThrows(TransicionEstadoInvalidaException.class, urgencia::finalizar)
+                        .getMessage());
 
         urgencia.cambiarEstado(EstadoUrgencia.EN_ATENCION);
         urgencia.cambiarEstado(EstadoUrgencia.ESTABILIZADA);
@@ -170,7 +184,9 @@ class DominioVetCareTest {
 
         assertEquals(1, consulta.getTratamientos().size());
         assertEquals(EstadoTratamiento.FINALIZADO, tratamiento.getEstado());
-        assertThrows(IllegalArgumentException.class, () -> consulta.registrarResultado(" "));
+        assertEquals("Las observaciones no pueden estar vacías.",
+                assertThrows(IllegalArgumentException.class,
+                        () -> consulta.registrarResultado(" ")).getMessage());
     }
 
     @Test
