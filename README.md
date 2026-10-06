@@ -1,6 +1,6 @@
 # VetCare
 
-Sistema de gestión para una clínica veterinaria, diseñado con Java 17, Spring Boot 3 y una arquitectura orientada al dominio.
+Sistema de gestión para una clínica veterinaria, diseñado con Java 25, Spring Boot 3 y una arquitectura orientada al dominio.
 
 ## Objetivo
 
@@ -13,8 +13,8 @@ Modelar el flujo clínico de una veterinaria con foco en:
 
 ## Stack
 
-- Java 17
-- Spring Boot 3.3.5
+- Java 25
+- Spring Boot 3.5.16
 - Spring Web
 - Spring Data JPA
 - Spring Validation
