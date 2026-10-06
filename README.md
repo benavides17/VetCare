@@ -69,9 +69,20 @@ Los cambios de estado de urgencias publican eventos para notificación. Un fallo
 
 ## Ejecución
 
+Se requiere JDK 25. Maven Wrapper descarga automáticamente Maven 3.9.15, por lo que no es necesario instalar Maven por separado.
+
+En Windows PowerShell, configura `JAVA_HOME` con la ruta donde instalaste el JDK 25 y agrega su carpeta `bin` al `PATH`:
+
+```powershell
+$env:JAVA_HOME = "C:\ruta\al\jdk-25"
+$env:Path = "$env:JAVA_HOME\bin;$env:Path"
+```
+
+Luego ejecuta las pruebas y la aplicación desde la raíz del repositorio:
+
 ```bash
-mvn clean test
-mvn spring-boot:run
+mvnw.cmd clean test
+mvnw.cmd spring-boot:run
 ```
 
 ## Perfiles
