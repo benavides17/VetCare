@@ -85,6 +85,30 @@ mvnw.cmd clean test
 mvnw.cmd spring-boot:run
 ```
 
+## Evidencia de pruebas
+
+Se ejecutaron pruebas representativas del sistema y todas pasaron correctamente. A continuación, la evidencia visual de cada una:
+
+### UrgenciaServiceImplTest
+
+![UrgenciaServiceImplTest](./capturas-tests/UrgenciaServiceImplTest.png)
+
+### CitaServiceImplTest
+
+![CitaServiceImplTest](./capturas-tests/CitaServiceImplTest.png)
+
+### ConsultaServiceImplTest
+
+![ConsultaServiceImplTest](./capturas-tests/ConsultaServiceImplTest.png)
+
+### PropietarioServiceImplTest
+
+![PropietarioServiceImplTest](./capturas-tests/PropietarioServiceImplTest.png)
+
+### DominioVetCareTest
+
+![DominioVetCareTest](./capturas-tests/DominioVetCareTest.png)
+
 ## Perfiles
 
 - dev: desarrollo local
